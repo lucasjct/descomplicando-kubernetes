@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  labels:
+    run: train
+  name: training
+spec:
+  containers:
+  - image: ubuntu
+    name: ubuntu
+    args:
+    - sleep
+    - "1600"
+    resources:
+      limits:
+        cpu: "0.5"
+        memory: "128Mi"
+      requests:
+        cpu: "0.3"
+        memory: "64Mi"
+    volumeMounts: 
+    - mountPath: /test-volume
+      name: test-volume
+  - image: nginx
+    name: web-server
+    ports:
+    - containerPort: 80
+    resources:
+      limits:
+        cpu: "0.3"
+        memory: "128Mi"
+      requests:
+        cpu: "0.2"
+        memory: "64Mi"
+  volumes:
+    - name: test-volume
+      emptyDir:
+        sizeLimit: 256Mi
