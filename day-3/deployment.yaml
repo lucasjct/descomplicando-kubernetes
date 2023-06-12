@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-deployment
+  name: nginx-deployment
+  namespace: giropops
+spec:
+  replicas: 10
+  revisionHistoryLimit: 10 # definição da quantidade de versões para rollback que serão disponibilizadas. 
+  selector: # informação dos pods que o Deployment deverá cuidar
+    matchLabels:
+      app: nginx-deployment
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1 # informa o número de Pod que posso ter [a mais] do que declarei no arquivo.
+      maxUnavailable: 3 # informa o número de pods que serão atualizados por vez. Neste exemplo, informa de um a um, 
+  template:             # mas podemos utilizar porcentagem também. 
+    metadata:
+      labels:
+        app: nginx-deployment
+    spec:
+      containers:
+      - image: nginx:1.16.0
+        name: nginx
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: 256Mi
+          requests:
+            cpu: "0.3"
+            memory: 64Mi
