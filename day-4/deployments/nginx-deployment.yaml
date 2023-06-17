@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx-server
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nginx-server
+  strategy: 
+    type: RollingUpdate # estratégia de deploy
+    rollingUpdate:  
+      maxSurge: 1
+      maxUnavailable: 3
+  template:
+    metadata:
+      labels:
+        app: nginx-server
+    spec:
+      containers:
+      - image: nginx
+        name: nginx-server
+        resources:
+          limits:
+            cpu: "0.50"
+            memory: 128Mi
+          requests:
+            cpu: "0.25"
+            memory: 64Mi
+        volumeMounts:
+          - mountPath: /app-settings
+            name: app-settings
+        livenessProbe: # configuração da Liveness Probe para Health-Check
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10 # intervalo entre a execução dos testes.
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:  # Configuração da ReadinesProbe para garantir que o container pode receber tráfego externo.
+          exec:  
+            command:
+            - curl
+            - -f
+            - http://localhost:80/
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 1
+      volumes: 
+        - name: app-settings 
+          emptyDir:
+            sizeLimit: 250Mi
