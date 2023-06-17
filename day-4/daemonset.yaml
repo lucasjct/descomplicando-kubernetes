@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: node-exporter-daemonset
+  name: node-exporter-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: node-exporter-daemonset
+  template: # forma que eu desejo que o objeto tenha
+    metadata:
+      labels:
+        app: node-exporter-daemonset
+    spec:
+      hostNetwork: true # true para utilizar a rede do pod que está executando o container
+      containers:
+      - name: node-exporter-daemonset
+        image: prom/node-exporter:latest
+        ports:
+        - containerPort: 9100
+          hostPort: 9100
+        volumeMounts: # montagem dos volumes dentro dos containers
+        - name: proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: sys
+          mountPath: /hosts/sys
+          readOnly: true
+      volumes: 
+      - name: proc 
+        hostPath: 
+         path: /proc  
+      - name:  sys  
+        hostPath:
+         path: /sys
+      

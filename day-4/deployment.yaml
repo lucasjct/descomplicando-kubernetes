@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-deployment
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: nginx-deployment
+    spec:
+      containers:
+      - image: nginx:1.19.2
+        name: nginx
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: 256Mi
+          requests:
+            cpu: "0.25"
+            memory: 128Mi
+        livenessProbe: # configuração da Liveness Probe para Health-Check
+          httpGet: # metodo get do procoloco http, se tiver tudo certo, retnornar status code 200.
+            path: /
+          #tcpSocket: # opção do protocolo TCP para obter a resposta porta 80.
+            port: 80 # Porta TCP que será checkada
+          initialDelaySeconds: 10 # quantos segundos de espera para executar a primeira verificação.
+          periodSeconds: 10 # teste rodará a cada 10 segundos
+          timeoutSeconds: 5 # após esperar 5 segundos, caso a conexão não aconteça, deverá retornar um timeout.
+          failureThreshold: 3  # Após falhar 3 vezes, será feito o restart do container.
+        readinessProbe: # Configuração da ReadinesProbe para garantir que o container pode receber tráfego externo.
+          exec:
+            command:
+            - curl
+            - -f 
+            - http://localhost:80/
+          initialDelaySeconds: 10 
+          periodSeconds: 10 
+          timeoutSeconds: 5
+          failureThreshold: 3 
+          successThreshold: 1
+        startupProbe:
+          tcpSocket:
+            port: 80 
+          initialDelaySeconds: 10 
+          # periodSeconds: 10 Não precisa setar um tempo de intervalo de tentativas porque startUpPobre executa apenas 1 vez. 
+          timeoutSeconds: 5
+          successThreshould: 1
+          failureThreshold: 1
