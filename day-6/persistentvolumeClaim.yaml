@@ -1,0 +1,20 @@
+apiVersion: v1 
+kind: PersistentVolumeClaim  
+metadata:
+  labels:
+    pvc: meu-primeiro-pvc
+  name: meu-pvc 
+spec:
+  accessModes:  #Opções: ReadWriteOnce (RWO), ReadOnlyMany (ROM) ou ReadWriteMany (RWM)
+    - ReadWriteOnce
+  resources:   
+    requests: # definimos os recursos que o PVC irá solicitar
+      storage: 1Gi
+  storageClassName: giropops # onde definimos o nome da classe de armazenamento que iremos associar ao PVC.
+  selector:
+   matchLabels:  
+    storage: nfs 
+
+# Todo PVC é associado a um Storage Class ou a um Persistent Volume. 
+# O Storage Class é um objeto que descreve e define diferentes classes de armazenamento disponíveis no cluster. 
+# Já o Persistent Volume é um recurso que representa um volume de armazenamento disponível para ser usado pelo cluster.

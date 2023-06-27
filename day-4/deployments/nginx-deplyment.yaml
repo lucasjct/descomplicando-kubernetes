@@ -63,3 +63,5 @@ spec:
         - name: app-settings 
           emptyDir:
             sizeLimit: 250Mi
+
+# https://www.youtube.com/watch?v=BXjLHhMiTmU // monitoring cluster

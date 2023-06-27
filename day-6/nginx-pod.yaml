@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: nginx-pod
+spec: 
+  containers:  
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: meu-pvc
+      mountPath: /usr/share/nginx/html # Montagem do volume dentro do container.
+  volumes: 
+  - name: meu-pvc #nome do volume
+    persistentVolumeClaim: # Tipo do volume
+      claimName: meu-pvc # Nome do pvc declado na label do arquivo do PVC 
+#! Este pod foi criado para receber persistentVolumeClaim este, por sua vez,
+#! está associado ao storageClass giropops.

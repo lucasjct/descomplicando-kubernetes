@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata: 
+  name: giropops
+provisioner: kubernetes.io/no-provisioner
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+
+
+# Uma StorageClass é um objeto que descreve e define diferentes classes de armazenamento no cluster e é 
+# útil para gerenciar e organizar diferentes tipos de armazenamento, políticas de retenção, 
+# provisionamento e outras características específicas de armazenamento.
