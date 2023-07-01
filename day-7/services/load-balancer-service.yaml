@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service 
+metadata:
+  name: nginx-loadbalancer
+  labels:
+    app: nginx # recebe a label utilizda no deployment.
+    env: dev
+spec:
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+    name: http
+    targetPort: 80
+  type: LoadBalancer # Tipo do service: LoadBalancer
+
+# Para obter o endereço do loadbalancer, preciso executar o comando abaixo:
+# kubectl describe svc nginx-loadbalancer
