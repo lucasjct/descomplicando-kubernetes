@@ -3,13 +3,13 @@
 
 **Pré-requisito:**  
 
-* Instalar e configuraro Kubectl para executar os comandos do Kubernetes.   
+* Instalar e configurar o [Kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) para executar os comandos do Kubernetes.   
 
 * Ter uma conta na AWS e instalar e configurar o [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) com as credencias geradas no AWS IAM.  
 
 * Instalar o [EKSCTL](https://eksctl.io/) que é a ferramenta CLI oficial para criar e gerenciar o cluster na AWS EKS. 
 
-* Clonar o projeto do Kube-Prometheus, para utilizar seus plugins e aplicar seus manifestos que garantem um  conjuntos de ferramentas para montiroamento e alertas.    
+* Clonar o projeto do Kube-Prometheus, para utilizar seus plugins e aplicar seus manifestos que garantem um  conjunto de ferramentas para montiroamento e alertas.    
 ***   
 
 * Cumprido os requisitos acima, vamos começar informando o **kubectl** que iremos gerenciar um cluster no EKS:  
@@ -52,7 +52,7 @@ Ele é responsável é um recurso do Prometheus operator responsável por monito
 
   `kubectl port-forward -n monitoring svc/grafana 33000:3000`   
 
-* Agora podemos acessar o Grafana a partir do browser com o seguinte endereço:  
+* Agora podemos acessar o Grafana através do browser com o seguinte endereço:  
 
   `http://localhost:33000`   
 
