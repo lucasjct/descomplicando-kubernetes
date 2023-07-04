@@ -28,6 +28,6 @@ Para mais detalhes sobre os services, segue o Ebook da LinuxTips sobre o [Kubern
 
 Exemplos de Services:  
 
-* [ClusterIP]("services/nginx-clusterIP-service.yaml")   
-* [NodePort]("services/nginx-nodePort-service.yaml")   
-* [LoadBalance]("services/load-balancer-service.yaml")  
+* [ClusterIP](services/nginx-clusterIP-service.yaml)   
+* [NodePort](services/nginx-nodePort-service.yaml)   
+* [LoadBalance](services/load-balancer-service.yaml)  
