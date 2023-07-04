@@ -18,4 +18,16 @@ Após criados nossos pods, podemos testá-los da seguinte maneira:
 `echo Segundo Pod > /usr/share/nginx/html/index.html`
 
 * Dentro do container, executar o curl e verificar se o dns está funcionando:  
-`curl nginx-1.nginx.default.svc.cluster.local`
+`curl nginx-1.nginx.default.svc.cluster.local`     
+
+# Services   
+
+Os Services são utilizados para expor os pods para o mundo externo e permitr que possamos acessá-los.  
+
+Para mais detalhes sobre os services, segue o Ebook da LinuxTips sobre o [Kubernetes](https://livro.descomplicandokubernetes.com.br/pt/day_seven/#services) .  
+
+Exemplos de Services:  
+
+* [ClusterIP]("services/nginx-clusterIP-service.yaml")   
+* [NodePort]("services/nginx-nodePort-service.yaml")   
+* [LoadBalance]("services/load-balancer-service.yaml")  
