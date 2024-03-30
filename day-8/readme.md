@@ -42,8 +42,7 @@ Após clonar o projeto, vamos acessá-lo e executar o seguinte comando:
 `kubectl apply -f manifests/`   
 
 Após a conclusao do apply, pode ver se o ServicesMonitors foi concluído:   
-
-` kubectl get servicemonitors -n monitoring`   
+`kubectl get servicemonitors -n monitoring`   
 
 Ele é responsável é um recurso do Prometheus operator responsável por monitorar os recursos Kubernetes e as Aplicações.    
 
