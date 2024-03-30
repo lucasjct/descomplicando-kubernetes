@@ -3,13 +3,16 @@
 O conteúdo abaixo foi extraído e adaptdo da LinuxTips (Descomplicando Kubernetes) e partes da doc do Kubernetes.
 
 
-* __Container Engine__ - gerencia imagens e volumes, responsável por garantir que os recursos que os containers estão utilizando, estão devidamente isolados. Exemplo de Container Engine: Docker, CRI-0 e Podman.    
-    * __Container Runtime:__  o Container Engine faz utiliza algum Container Runtime.  
-    * __Tipo de Container Runtime__:  
-        * __Low-level:__ executados diretamente pelo Kernel, exemplo: runc, crun, runsc.    
-        * __High-level:__ executados por um *Container Engine*, como containerid, CRI-O e o Podman.    
-        * __Sandbox:__ executado por um *Container Engine*, executado de forma mais segura em unikernels ou utilizando proxy para comunicar-se com Kernel.  *Gvisor* é um exemplo.   
-        * __Virtualized:__  executado por *Container Engine*, responsaveil por executar containers de maneira segura em máquinas virtuais. *Kata Containers* é um exemplo.   
+ ### Container Engine   
+ Gerencia imagens e volumes, responsável por garantir que os recursos que os containers estão utilizando, estão devidamente isolados e sendo executados. Gerencia o ciclo de vida dos containers. Exemplo de Container Engine: Docker, CRI-0 e Podman.      
+
+* __Container Runtime:__  o Container Engine faz utiliza algum Container Runtime.  
+* __Tipo de Container Runtime__:  
+    
+    * __Low-level:__ executados diretamente pelo Kernel, exemplo: runc, crun, runsc.    
+    * __High-level:__ executados por um *Container Engine*, como containerid, CRI-O e o Podman.    
+    * __Sandbox:__ executado por um *Container Engine*, executado de forma mais segura em unikernels ou utilizando proxy para comunicar-se com Kernel.  *Gvisor* é um exemplo.   
+    * __Virtualized:__  executado por *Container Engine*, responsaveil por executar containers de maneira segura em máquinas virtuais. *Kata Containers* é um exemplo.   
 
 
 ## Arquitetura do Kubernetes  
@@ -40,6 +43,24 @@ Componente do Control Plane que expõe a API do Kubernetes. É uma API REST ent�
 
 ### Kube-proxy  
 
-Atua como um *load-balancer*. Responsável por efetuar o roteamento de requisições para os pods corretos, como também cuidar da parte de redes do nó.
+Atua como um *load-balancer*. Responsável por efetuar o roteamento de requisições para os pods corretos, como também cuidar da parte de redes do nó.  
 
 
+
+## Conceitos Chaves Kubernetes   
+
+### Pod  
+Menor objeto do Kubernetes. Os pods organizam os containers. Como os containers são organizados dentro de Pods, eles dividem recursos de memória e cpu, volumes, endereços de rede. Pode existir varios containers dentro de um pod. Exemplo de configuração de um Pod com um úncio container: [ubuntu](../day-2/pod-limitado.yml). Exemplo de pod com mais de um container: [conjunto de containers](../day-2/pod-parametros.yaml). 
+
+
+### Deployment  
+
+É um conjunto de __ReplicaSet__. Garante que um número determinado de *replicas* de pods sejam executados dentro workers do cluster. Exemplo de [deployment](../day-3/deployment.yaml). Podemos observar as replicas definidas para um pod, bem como as estratégias de deploy e rollback, além de recursos do pod no exemplo do link acima.   
+
+### ReplicaSets  
+
+Objeto responsável por garantir a quantidade de pods em execução em um node. 
+
+### Service  
+
+É um método de expor uma uma rede da aplicação para executar com um ou mais pods dentro de um cluster. Para isso, utiliza-se: *ClusterIP*, *NodePort* ou *LoadBalancer*. Veja exemplos para: [ClusterIP](../day-7/services/nginx-clusterIP-service.yaml), [NodePort](../day-7/services/nginx-nodePort-service.yaml), [LoadBalancer](../day-7/services/load-balancer-service.yaml).   
