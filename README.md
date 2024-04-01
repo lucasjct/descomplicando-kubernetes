@@ -20,7 +20,7 @@ Conteúdo abordado
 
 | Temas | Dia do treinamento      | Conteúdo          |
 |--------|-----------|----------------|
-| Resumo dos Fundamentos do Kubernetes | Dia 1  | [dundamentos](./day-1/README.md) |
+| Resumo dos Fundamentos do Kubernetes | Dia 1  | [fundamentos](./day-1/README.md) |
 | Pods | Dia 2 | [Pods](./day-2/) |
 | Deployments, namespace, roolbacks | Dia 3 | [deployments](./day-3/) |
 | Deployments, probes, replicaset, daemonset | Dia 4 | [deployments, probes, etc](./day-4/) |  
