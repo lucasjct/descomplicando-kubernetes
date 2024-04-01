@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: giropops-senhas
+  name: {{ .Values.giropopsSenha.name }} # valor declarado no values.yaml
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: giropops-senhas
+  template:
+    metadata:
+      labels:
+        app: giropops-senhas
+    spec:
+      containers:
+      - image: {{ .Values.giropopsSenha.image }} # valor declarado no values.yaml
+        name: giropops-senhas
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always

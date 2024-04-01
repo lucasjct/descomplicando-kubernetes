@@ -31,3 +31,10 @@ Conteúdo abordado
 
 
 
+# Cheat Sheet Kubernetes   
+
+Consulte as opções de linha de comando do Kubernetes a partir da documentação oficial.  
+
+
+
+https://kubernetes.io/docs/reference/kubectl/quick-reference/
