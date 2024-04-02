@@ -2,27 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: redis
+    app: {{ .Values.redis.labels.app }}
   name: {{ .Values.redis.name }} # valor declarado no values.yaml
 spec:
-  replicas: 1
+  replicas: {{ .Values.redis.replicas }}
   selector:
     matchLabels:
-      app: redis
+      app: {{ .Values.redis.labels.app }}
   template:
     metadata:
       labels:
-        app: redis
+        app: {{ .Values.redis.labels.app }}
     spec:
       containers:
       - image: {{ .Values.redis.image }} # valor declarado no values.yaml
         name: redis
         ports:
-          - containerPort: 6379
+          - containerPort: {{ .Values.redis.service.port }}
         resources:
           limits:
-            memory: "256Mi"
-            cpu: "500m"
+            memory: {{ .Values.redis.resources.limits.memory }}
+            cpu: {{ .Values.redis.resources.limits.cpu }}
           requests:
-            memory: "128Mi"
-            cpu: "250m"
+            memory: {{ .Values.redis.resources.requests.memory }}
+            cpu: {{ .Values.redis.resources.requests.cpu }}
