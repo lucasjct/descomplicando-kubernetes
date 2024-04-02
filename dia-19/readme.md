@@ -2,6 +2,14 @@
 
 [Documentação Oficial](https://helm.sh/docs/)
 
+### Instalação 
+
+```
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```   
+
 Helm é um gerenciador de pacotes Kubernetes, instala, atualiza aplicações e serviços no Kubernetes.  
 Ele possui um __Chart__ que é um conjunto de arquivos, um pacote com um conjunto de templates que definem a aplicação.
 
@@ -37,13 +45,6 @@ spec:
         imagePullPolicy: Always
 ``` 
 
-### Instalação 
-
-```
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-```   
 
 ### Deploy  
 
