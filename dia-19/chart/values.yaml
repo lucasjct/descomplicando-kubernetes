@@ -1,37 +1,65 @@
-giropopsSenha:
-  name: "giropops-senhas"
-  image: "linuxtips/giropops-senhas:1.0" 
-  replicas: "3"
-  labels:
-    app: "giropops-senhas"
-  service:
-    name: "giropops-senhas-svc"
-    type: "ClusterIP"
-    port: 5000
-    targetPort: 5000
-  resources:
-    requests:
-      memory: "64Mi"
-      cpu: "250m"
-    limits:
-      memory: "256Mi"
-      cpu: "500m"
+deployments:
+  giropops-senha:
+    name: "giropops-senhas"
+    image: "linuxtips/giropops-senhas:1.0" 
+    replicas: "3"
+    labels:
+      app: "app"
+    ports:
+      - port: 5000
+        targetPort: 5000
+        name: "app"
+        serviceType: "NodePort"
+        NodeṔort: 32500
+      - port: 8088
+        targetPort: 8088
+        name: "app"
+        serviceType: "ClusterIP"  
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
       
-redis:
-  name:  "redis-helm"
-  image: "redis"
-  replicas: "1"
-  labels:
-    app: "redis"
-  service:
-    name: "redis-svc"
-    type: "ClusterIP"
-    port: 6379
-    targetPort: 6379
-  resources:
-    requests:
-      memory: "64Mi"
-      cpu: "250m"
-    limits:
-      memory: "256Mi"
-      cpu: "500m"
+  redis:
+    name:  "redis-helm"
+    image: "redis"
+    replicas: "1"
+    labels:
+      app: "redis"
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+
+services:
+  giropops-senha:
+    ports:
+      - port: 5000
+        targetPort: 5000
+        name: "giropops-senhas-port"
+        serviceType: "NodePort"
+        NodeṔort: 32500
+      - port: 8088
+        targetPort: 8088
+        name: "metrics"
+        serviceType: "ClusterIP"
+    labels:
+      app: "giropops-senhas"
+      env: "labs"
+      live: "true"
+  redis:
+    ports:
+      - port: 6379
+        targetPort: 6379
+        name:  "app"
+        serviceType: "ClusterIP" 
+    labels:
+      app: "redis"
+      env: "labs"
+      live: "true" 
