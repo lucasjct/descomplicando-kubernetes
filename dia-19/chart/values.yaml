@@ -57,9 +57,21 @@ services:
     ports:
       - port: 6379
         targetPort: 6379
-        name:  "app"
+        name:  "service"
         serviceType: "ClusterIP" 
     labels:
       app: "redis"
       env: "labs"
       live: "true" 
+observability:
+  giropops-senha:
+    loggin: true
+    metrics:
+      enabled: true 
+      path: "/metrics"
+databases:
+  giropops-senha:
+    mysql:
+      host: "mysql.svc.cluster.local"
+      port: 3006
+      name:  mydb

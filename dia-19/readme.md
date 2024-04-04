@@ -18,40 +18,67 @@ Arquivo `values.yaml` é onde podemos parametrizar nossa instalação. Nele cont
 O arquivo `values.yaml` pode ser consutado neste [link](../dia-19/chart/values.yaml).  
 Ao declarar os valroes em `values.yaml`, estes serão utilizado nos templates utilizando a seguinte sintaxe:  `{{ .Values.giropopsSenha.name }}` 
 
-Exemplo completo
+### Exemplo completo
 
 
-```apiVersion: apps/v1
+```{{- range $component, $config := .Values.deployments }} # 
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: {{ $component }}
   labels:
-    app: giropops-senhas
-  name: {{ .Values.giropopsSenha.name }} # valor declarado no values.yaml
+    app: {{ $config.labels.app }}
 spec:
-  replicas: 2
+  replicas: {{ $config.replicas | default 2 }} # função default
   selector:
     matchLabels:
-      app: giropops-senhas
+      app: {{ $config.labels.app }}
   template:
     metadata:
       labels:
-        app: giropops-senhas
-    spec:
+        app: {{ $config.labels.app }} 
+    spec: 
       containers:
-      - image: {{ .Values.giropopsSenha.image }} # valor declarado no values.yaml
-        name: giropops-senhas
+      - name: {{ $component }}
+        image: {{ $config.image }} 
         ports:
-        - containerPort: 5000
-        imagePullPolicy: Always
+        {{- range $config.ports }}
+        - containerPort: {{ .port }}
+        {{- end }}
+        resources:
+          requests:
+            memory: {{ $config.resources.requests.memory }}
+            cpu: {{ $config.resources.requests.cpu }}
+          limits:
+            memory: {{ $config.resources.limits.memory }}
+            cpu: {{ $config.resources.limits.cpu }}
+---
+{{- end }}       
 ``` 
 
 
 ### Deploy  
 
-Para deployar a aplicação de exemplo, considerando que está no repositório local, no diretório que contém o __chart__, podemo usar o comando:  
+Para deployar a aplicação de exemplo, considerando que está no repositório local, no diretório que contém o __chart__, podemo usar o comando para instalar:  
 
-`helm install giropops-senhas ./`  
+`helm install giropops-senhas ./`    
+
+Para atualizar:  
+`helm upgrade giropops-senhas ./`
 
 
 Para desinstalar, utilizamos o comando:  
-`helm uninstall giropops-senhas`
+`helm uninstall giropops-senhas`  
+
+
+## Funções do Helm  
+
+* `default` para definir valores, como exemplo em que definimos um valor default de replicas:  `replicas: {{ $config.replicas | default 2 }}`   
+* `toYaml` para converter um campo para yaml. como exemplo defimos um valor para o configMap: `{{- toYaml $config | nindent 4}}` e `nindent 4` é a definição de identação para o yaml.    
+* `toJspm` para converter um campo para json. como exemplo defimos um valor para o configMap: `{{- toJson $config}}`.  
+
+Para verificar estes outputs, podemos executar respectivamente:    
+`k get cm giropops-senha-observablity-config -o yaml`   
+
+`k get cm giropops-senha-db-config -o yaml`
+

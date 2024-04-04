@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ $config.labels.app }}
 spec:
-  replicas: {{ $config.replicas }}
+  replicas: {{ $config.replicas | default 2 }} # função default
   selector:
     matchLabels:
       app: {{ $config.labels.app }}

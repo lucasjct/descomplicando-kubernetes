@@ -1,0 +1,9 @@
+{{- range $component, $config := .Values.observability }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $component }}-observablity-config
+data:
+  app-config.json: | 
+    {{ toJson $config }} # k get cm giropops-senha-observablity-config -o yaml para verificar o json (funcao toJson) gerado para a propriedade data.
+{{- end }}
