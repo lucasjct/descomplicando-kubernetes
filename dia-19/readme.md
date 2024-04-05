@@ -56,6 +56,13 @@ spec:
 {{- end }}       
 ``` 
 
+Para fazer comentários dentro de arquivos Helm, podemos utiliza a sintaxe abaixo:  
+
+```
+{{/*
+Definir as portas dos containers
+*/}}
+```
 
 ### Deploy  
 
@@ -80,5 +87,14 @@ Para desinstalar, utilizamos o comando:
 Para verificar estes outputs, podemos executar respectivamente:    
 `k get cm giropops-senha-observablity-config -o yaml`   
 
-`k get cm giropops-senha-db-config -o yaml`
+`k get cm giropops-senha-db-config -o yaml`  
 
+###   Helpers  
+
+Uma forma de reduzir a quantidade de código repetido e a complexidade nos templates.   
+
+o arquivo de exemplo:  
+
+[_helpers.tpl](/chart/templates/_helpers.tpl)  
+
+Dentro dos Helpers, podemos utilizar funções que vimos até então.

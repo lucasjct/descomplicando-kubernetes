@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ $component }}
   labels:
-    app: {{ $config.labels.app }}
+    {{- include "app.labels" $config | indent 4 }}
 spec:
   replicas: {{ $config.replicas | default 2 }} # função default
   selector:
@@ -13,22 +13,15 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ $config.labels.app }} 
+        {{- include "app.labels" $config | indent 8 }}
     spec: 
       containers:
       - name: {{ $component }}
         image: {{ $config.image }} 
         ports:
-        {{- range $config.ports }}
-        - containerPort: {{ .port }}
-        {{- end }}
+        {{- include "app.ports" $config | nindent 10 }}
         resources:
-          requests:
-            memory: {{ $config.resources.requests.memory }}
-            cpu: {{ $config.resources.requests.cpu }}
-          limits:
-            memory: {{ $config.resources.limits.memory }}
-            cpu: {{ $config.resources.limits.cpu }}
+          {{- include "app.resources" $config | nindent 12 }}
 ---
 {{- end }}
         
