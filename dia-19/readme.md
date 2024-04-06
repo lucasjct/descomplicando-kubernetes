@@ -15,7 +15,7 @@ Ele possui um __Chart__ que é um conjunto de arquivos, um pacote com um conjunt
 
 Arquivo `values.yaml` é onde podemos parametrizar nossa instalação. Nele contém os valores default para um chart. Esses valores podem ser sobrescritos durante o uso por  comandos `helm install` ou `helm upgrade`.    
 
-O arquivo `values.yaml` pode ser consutado neste [link](../dia-19/chart/values.yaml).  
+O arquivo `values.yaml` pode ser consutado neste [link](/dia-19/chart/values.yaml).  
 Ao declarar os valroes em `values.yaml`, estes serão utilizado nos templates utilizando a seguinte sintaxe:  `{{ .Values.giropopsSenha.name }}` 
 
 ### Exemplo completo

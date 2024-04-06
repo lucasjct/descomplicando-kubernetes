@@ -28,6 +28,7 @@ Conteúdo abordado
 | Persistent volumes, Storage Class | Dia 6 | [persistent volumes, storage class, etc](./day-6/) |
 | Services, Load Balancers, ClusterIP, NodePort,  | Dia 7 | [services, load balancer, etc](./day-7/) |
 | Prometheus e Grafana no EKS | Dia 8 | [prometheus e grafana](./day-8/) |
+| Descomplicando o Helm | Dia 19 | [descomplicando o helm](./day-19/) |
 
 
 
