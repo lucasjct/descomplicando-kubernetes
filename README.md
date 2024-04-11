@@ -26,8 +26,11 @@ Conteúdo abordado
 | Deployments, probes, replicaset, daemonset | Dia 4 | [deployments, probes, etc](./day-4/) |  
 | ConfigMap, Volumes | Dia 5 | [configMap, volumes, etc](./day-5/) |  
 | Persistent volumes, Storage Class | Dia 6 | [persistent volumes, storage class, etc](./day-6/) |
-| Services, Load Balancers, ClusterIP, NodePort,  | Dia 7 | [services, load balancer, etc](./day-7/) |
-| Prometheus e Grafana no EKS | Dia 8 | [prometheus e grafana](./day-8/) |
+| Services, Load Balancers, ClusterIP, NodePort  | Dia 7 | [services, load balancer, etc](./day-7/) |
+| ConfigMaps, Secret  | Dia 8 | [configmap, secret](./day-8/) |
+| Ingress  | Dia 9 | [Ingress no kind, EKS](./day-9/) |
+| Prometheus e Grafana no EKS | Dia 11 | [prometheus e grafana](./day-11/) |
+| ServiceMonitors, PodMonitors e Alertas | Dia 12 | [serviceMonitors, PodMoniors e aleras](./day-12/) |
 | Descomplicando o Helm | Dia 19 | [descomplicando o helm](./day-19/) |
 
 
